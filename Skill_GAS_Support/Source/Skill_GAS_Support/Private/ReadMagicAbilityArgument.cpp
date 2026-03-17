@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AbilitySystem/ReadMagicAbilityArgument.h"
+#include "ReadMagicAbilityArgument.h"
 
 
 bool UReadMagicAbilityArgument::NetSerialize(FArchive& Ar, UPackageMap* Map, bool& bOutSuccess)

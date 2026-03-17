@@ -1,13 +1,14 @@
 ﻿#include "SkillSystemFunctionLibrary.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Werewolf_AbilitySystemComponent.h"
-#include "Werewolf_MagicSystemComponent.h"
-#include "Abilities/Werewolf_Ability.h"
+#include "SGSAbilitySystemComponent.h"
+#include "MagicSystemComponent.h"
+#include "Abilities/SGSAbility.h"
 #include "Engine/AssetManager.h"
 #include "Kismet/GameplayStatics.h"
-#include "Manager/SkillManager.h"
-#include "TargetActor/Werewolf_GATargetDataType.h"
+#include "Subsystem/SkillManager.h"
+#include "TargetActor/SGS_GATargetDataType.h"
 //#include "Manager/SkillManager.cpp"
 
 float USkillSystemFunctionLibrary::GetAngleForActorForwardVector(FVector RefPoint, FVector ContraPoint, AActor* RefActor)
@@ -27,7 +28,7 @@ void USkillSystemFunctionLibrary::GiveMagicAbilityById(UObject* WorldContextObje
 {
 	if(AActor* Owner = ASC->GetOwner())
 	{
-		if(UWerewolf_MagicSystemComponent* MSC = Owner->GetComponentByClass<UWerewolf_MagicSystemComponent>())
+		if(UMagicSystemComponent* MSC = Owner->GetComponentByClass<UMagicSystemComponent>())
 		{
 			FGameplayAbilitySpecHandle GASpecHandle = MSC->GetLearnedMagicGASpecHandleByMagicId(MagicAbilityId);
 			if(GASpecHandle.IsValid()) return;
@@ -64,7 +65,7 @@ void USkillSystemFunctionLibrary::OnMagicAbilityLoaded(FSoftObjectPath Path, FSk
 		
 		if(ASC && ASC->IsOwnerActorAuthoritative())
 		{
-			if(UWerewolf_Ability* MagicCDO = Cast<UWerewolf_Ability>(MagicAbilityClass->GetDefaultObject()))
+			if(USGSAbility* MagicCDO = Cast<USGSAbility>(MagicAbilityClass->GetDefaultObject()))
 			{
 				MagicCDO->SkillId = MagicSkillRow->SkillId;
 				FGameplayAbilitySpec AbilitySpec(MagicCDO, 1);
@@ -72,7 +73,7 @@ void USkillSystemFunctionLibrary::OnMagicAbilityLoaded(FSoftObjectPath Path, FSk
 				const FGameplayAbilitySpecHandle AbilitySpecHandle = ASC->GiveAbility(AbilitySpec);
 				if(AActor* Owner = ASC->GetOwner())
 				{
-					UWerewolf_MagicSystemComponent* MSC = Owner->GetComponentByClass<UWerewolf_MagicSystemComponent>();
+					UMagicSystemComponent* MSC = Owner->GetComponentByClass<UMagicSystemComponent>();
 					if(MSC)
 					{
 						FLearnedMagicDataWrap LearnedMagicDataWrap;
@@ -132,7 +133,7 @@ bool USkillSystemFunctionLibrary::IsAbilityActiveByTag(UAbilitySystemComponent* 
 {
 	if(!AbilitySystemComponent) return false;
 
-	UWerewolf_AbilitySystemComponent* ASC = Cast<UWerewolf_AbilitySystemComponent>(AbilitySystemComponent);
+	USGSAbilitySystemComponent* ASC = Cast<USGSAbilitySystemComponent>(AbilitySystemComponent);
 	if(ASC)
 	{
 		return ASC->K2_IsAbilityActiveByTag(Tag);
@@ -141,7 +142,7 @@ bool USkillSystemFunctionLibrary::IsAbilityActiveByTag(UAbilitySystemComponent* 
 	return false;
 }
 
-UWerewolf_MagicSystemComponent* USkillSystemFunctionLibrary::GetLocalPlayerMagicSystemComponent(UObject* WorldContextObject)
+UMagicSystemComponent* USkillSystemFunctionLibrary::GetLocalPlayerMagicSystemComponent(UObject* WorldContextObject)
 {
 	if(UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject))
 	{
@@ -154,7 +155,7 @@ UWerewolf_MagicSystemComponent* USkillSystemFunctionLibrary::GetLocalPlayerMagic
 	return nullptr;
 }
 
-UWerewolf_MagicSystemComponent* USkillSystemFunctionLibrary::GetPlayerMagicSystemComponent(UObject* WorldContextObject, AActor* CheckActor)
+UMagicSystemComponent* USkillSystemFunctionLibrary::GetPlayerMagicSystemComponent(UObject* WorldContextObject, AActor* CheckActor)
 {
 	if(UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject))
 	{
@@ -193,7 +194,7 @@ bool USkillSystemFunctionLibrary::TryUseCurrentEquipedMagicAbility(UObject* Worl
 	return false;
 }
 
-UWerewolf_Ability* USkillSystemFunctionLibrary::GetCurrentEquipedMagicClass(UObject* WorldContextObject, UAbilitySystemComponent* ASC)
+USGSAbility* USkillSystemFunctionLibrary::GetCurrentEquipedMagicClass(UObject* WorldContextObject, UAbilitySystemComponent* ASC)
 {
 	if(UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject))
 	{
@@ -219,7 +220,7 @@ FGameplayTagContainer USkillSystemFunctionLibrary::GetCurrentEquipedMagicCooldow
 	return FGameplayTagContainer();
 }
 
-UWerewolf_Ability* USkillSystemFunctionLibrary::GetPlayerLearnedMagicClassById(UObject* WorldContextObject, int32 MagicAbilityId)
+USGSAbility* USkillSystemFunctionLibrary::GetPlayerLearnedMagicClassById(UObject* WorldContextObject, int32 MagicAbilityId)
 {
 	if(UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject))
 	{
@@ -299,7 +300,7 @@ FGameplayTag USkillSystemFunctionLibrary::GetAbilityTriggerTagFromSpecHandle(UOb
 
 void USkillSystemFunctionLibrary::GetPlayerAllLearnedMagicAbilitiesIds(UObject* WorldContextObject, AActor* CheckActor, TArray<int32>& ResultArray)
 {
-	if(UWerewolf_MagicSystemComponent* MSC = GetPlayerMagicSystemComponent(WorldContextObject, CheckActor))
+	if(UMagicSystemComponent* MSC = GetPlayerMagicSystemComponent(WorldContextObject, CheckActor))
 	{
 		MSC->GetAllLearnedMagicAbilitiesIds(ResultArray);
 	}
@@ -381,5 +382,26 @@ void USkillSystemFunctionLibrary::GetCDTimeRemainingAndDurationByTag(UAbilitySys
 			CooldownDuration = DurationAndTimeRemaining[BestIdx].Value;
 		}
 	}
+}
+
+bool USkillSystemFunctionLibrary::SendGameplayEventToActorByReturn(AActor* Actor, FGameplayTag EventTag, FGameplayEventData Payload)
+{
+	if (IsValid(Actor))
+	{
+		UAbilitySystemComponent* AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);
+		if (AbilitySystemComponent != nullptr && IsValidChecked(AbilitySystemComponent))
+		{
+			FScopedPredictionWindow NewScopedWindow(AbilitySystemComponent, true);
+			if (AbilitySystemComponent->HandleGameplayEvent(EventTag, &Payload) > 0)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("UWerewolf_CommonBlueprintFunctionLibrary::SendGameplayEventToActorByReturn: Invalid ability system component retrieved from Actor %s. EventTag was %s"), *Actor->GetName(), *EventTag.ToString());
+		}
+	}
+	return false;
 }
 

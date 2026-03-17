@@ -1,5 +1,4 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "Skill_GAS_Support.h"
 
 #define LOCTEXT_NAMESPACE "FSkill_GAS_SupportModule"

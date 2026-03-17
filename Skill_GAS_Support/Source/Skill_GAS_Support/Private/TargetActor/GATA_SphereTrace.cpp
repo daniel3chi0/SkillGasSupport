@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/TargetActor/GATA_SphereTrace.h"
+﻿#include "TargetActor/GATA_SphereTrace.h"
 #include "WorldCollision.h"
 #include "DrawDebugHelpers.h"
 #include "GameFramework/PlayerController.h"

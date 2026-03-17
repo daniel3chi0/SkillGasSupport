@@ -1,5 +1,4 @@
 ﻿#include "RepVelocityProjectile.h"
-
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 

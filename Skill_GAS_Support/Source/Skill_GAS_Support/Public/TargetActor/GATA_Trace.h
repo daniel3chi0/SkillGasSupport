@@ -14,7 +14,7 @@
  * 与 GSAT_WaitTargetDataUsingActor 一起使用，而不是默认的 WaitTargetData AbilityTask。否则将销毁 TargetActor.
  */
 UCLASS()
-class WESTERN_MAP_API AGATA_Trace : public AGameplayAbilityTargetActor
+class SKILL_GAS_SUPPORT_API AGATA_Trace : public AGameplayAbilityTargetActor
 {
 	GENERATED_BODY()
 	

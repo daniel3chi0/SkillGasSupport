@@ -4,7 +4,7 @@
 #include "ManaStealExecution.generated.h"
 
 UCLASS()
-class WESTERN_MAP_API UManaStealExecution : public UGameplayEffectExecutionCalculation
+class SKILL_GAS_SUPPORT_API UManaStealExecution : public UGameplayEffectExecutionCalculation
 {
 	GENERATED_BODY()
 	

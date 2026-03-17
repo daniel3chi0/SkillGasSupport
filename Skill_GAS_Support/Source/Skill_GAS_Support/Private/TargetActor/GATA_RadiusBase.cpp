@@ -1,6 +1,6 @@
 ﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "AbilitySystem/TargetActor/GATA_RadiusBase.h"
+#include "TargetActor/GATA_RadiusBase.h"
 #include "GameFramework/Pawn.h"
 #include "WorldCollision.h"
 #include "Abilities/GameplayAbility.h"

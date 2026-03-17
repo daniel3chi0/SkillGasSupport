@@ -4,7 +4,7 @@
 #include "GATA_Radius.generated.h"
 
 UCLASS()
-class WESTERN_MAP_API AGATA_Radius : public AGATA_RadiusBase
+class SKILL_GAS_SUPPORT_API AGATA_Radius : public AGATA_RadiusBase
 {
 	GENERATED_BODY()
 	

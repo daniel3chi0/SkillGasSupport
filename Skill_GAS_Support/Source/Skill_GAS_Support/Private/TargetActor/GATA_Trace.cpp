@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/TargetActor/GATA_Trace.h"
+﻿#include "TargetActor/GATA_Trace.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemLog.h"
 #include "DrawDebugHelpers.h"

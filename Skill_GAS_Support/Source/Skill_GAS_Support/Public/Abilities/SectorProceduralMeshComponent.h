@@ -6,7 +6,10 @@
 #include "ProceduralMeshComponent.h"
 #include "SectorProceduralMeshComponent.generated.h"
 
-class WESTERN_MAP_API UProceduralMeshHelper
+/*
+*	=============================== 有bug 暂时用不了 ==============================
+*/
+class SKILL_GAS_SUPPORT_API UProceduralMeshHelper
 {
 public:
 
@@ -20,7 +23,7 @@ public:
 };
 
 UCLASS(Blueprintable, DefaultToInstanced, EditInlineNew)
-class WESTERN_MAP_API UProceduralMeshParam_Sector : public UObject
+class SKILL_GAS_SUPPORT_API UProceduralMeshParam_Sector : public UObject
 {
 	GENERATED_BODY()
 public:
@@ -62,7 +65,7 @@ public:
  * 
  */
 UCLASS(meta=(BlueprintSpawnableComponent), ClassGroup = "Collision")
-class WESTERN_MAP_API UCustomProceduralMeshComponent : public UProceduralMeshComponent
+class SKILL_GAS_SUPPORT_API UCustomProceduralMeshComponent : public UProceduralMeshComponent
 {
 	GENERATED_BODY()
 

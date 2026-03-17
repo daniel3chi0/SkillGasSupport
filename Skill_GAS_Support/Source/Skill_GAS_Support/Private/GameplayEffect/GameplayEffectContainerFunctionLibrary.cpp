@@ -1,8 +1,8 @@
-﻿#include "AbilitySystem/GameplayEffect/GameplayEffectContainerFunctionLibrary.h"
+﻿#include "GameplayEffect/GameplayEffectContainerFunctionLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"
-#include "AbilitySystem/Abilities/TargetType.h"
-#include "Manager/SkillManager.h"
+#include "Abilities/TargetType.h"
+#include "Subsystem/SkillManager.h"
 
 void UGameplayEffectContainerFunctionLibrary::GetDataFromTargetType(TSubclassOf<UTargetType> TargetType, const FGameplayEventData& EventData,
 	TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& TargetHitResults, TArray<AActor*>& TargetActors)

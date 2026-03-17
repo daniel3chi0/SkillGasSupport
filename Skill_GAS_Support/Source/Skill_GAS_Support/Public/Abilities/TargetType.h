@@ -1,13 +1,11 @@
 ﻿#pragma once
-
 #include "TargetType.generated.h"
-
 
 struct FGameplayAbilityTargetDataHandle;
 struct FGameplayEventData;
 
 UCLASS(Blueprintable, meta = (ShowWorldContextPin))
-class WESTERN_MAP_API UTargetType : public UObject
+class SKILL_GAS_SUPPORT_API UTargetType : public UObject
 {
 	GENERATED_BODY()
 public:
@@ -18,7 +16,7 @@ public:
 };
 
 UCLASS(NotBlueprintable)
-class WESTERN_MAP_API UTargetType_UseOwner : public UTargetType
+class SKILL_GAS_SUPPORT_API UTargetType_UseOwner : public UTargetType
 {
 	GENERATED_BODY()
 
@@ -30,7 +28,7 @@ public:
 };
 
 UCLASS(NotBlueprintable)
-class WESTERN_MAP_API UTargetType_UseEventData : public UTargetType
+class SKILL_GAS_SUPPORT_API UTargetType_UseEventData : public UTargetType
 {
 	GENERATED_BODY()
 

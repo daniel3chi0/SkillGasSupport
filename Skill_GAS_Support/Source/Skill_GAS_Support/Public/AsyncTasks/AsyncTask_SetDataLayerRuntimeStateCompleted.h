@@ -6,7 +6,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSetDataLayerStateAndStreamingCompleted);
 
 UCLASS(BlueprintType, meta = (ExposedAsyncProxy = AsyncTask))
-class WESTERN_MAP_API UAsyncTask_SetDataLayerRuntimeStateCompleted : public UBlueprintAsyncActionBase
+class SKILL_GAS_SUPPORT_API UAsyncTask_SetDataLayerRuntimeStateCompleted : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 

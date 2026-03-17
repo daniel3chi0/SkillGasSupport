@@ -17,7 +17,7 @@ GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
  * 
  */
 UCLASS()
-class WESTERN_MAP_API USkillAttributeSet : public UAttributeSet
+class SKILL_GAS_SUPPORT_API USkillAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 	

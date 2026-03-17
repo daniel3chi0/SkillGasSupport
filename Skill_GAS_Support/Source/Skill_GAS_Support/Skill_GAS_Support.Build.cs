@@ -26,6 +26,9 @@ public class Skill_GAS_Support : ModuleRules
 			new string[]
 			{
 				"Core",
+				"GameplayAbilities",
+				"GameplayTags",
+				"GameplayTasks",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -38,9 +41,9 @@ public class Skill_GAS_Support : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"GameplayAbilities",
-				"GameplayTags",
-				"GameplayTasks",
+				"EnhancedInput",
+				"ProceduralMeshComponent",
+				"InputCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

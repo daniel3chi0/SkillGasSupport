@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameplayTagAddedRemoved, FGameplayTag, Tag);
 
 UCLASS(BlueprintType, meta = (ExposedAsyncProxy = AsyncTask))
-class WESTERN_MAP_API UAsyncTask_GameplayTagAddedRemoved : public UAbilityAsync
+class SKILL_GAS_SUPPORT_API UAsyncTask_GameplayTagAddedRemoved : public UAbilityAsync
 {
 	GENERATED_BODY()
 

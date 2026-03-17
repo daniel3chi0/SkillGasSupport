@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitTargetDataUsingActorDelegate, c
  * 
  */
 UCLASS()
-class WESTERN_MAP_API UAbilityTask_WaitTargetDataReusableActor : public UAbilityTask
+class SKILL_GAS_SUPPORT_API UAbilityTask_WaitTargetDataReusableActor : public UAbilityTask
 {
 	GENERATED_BODY()
 

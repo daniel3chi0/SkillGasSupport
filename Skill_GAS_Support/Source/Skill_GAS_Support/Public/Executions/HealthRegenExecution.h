@@ -16,7 +16,7 @@ enum class ECalcuType : uint8
  * 
  */
 UCLASS()
-class WESTERN_MAP_API UHealthRegenExecution : public UGameplayEffectExecutionCalculation
+class SKILL_GAS_SUPPORT_API UHealthRegenExecution : public UGameplayEffectExecutionCalculation
 {
 	GENERATED_BODY()
 	

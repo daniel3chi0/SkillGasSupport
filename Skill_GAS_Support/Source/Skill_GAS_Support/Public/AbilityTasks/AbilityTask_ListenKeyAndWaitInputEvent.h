@@ -11,7 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FListenKeyInputEventDelegate);
  * 
  */
 UCLASS()
-class WESTERN_MAP_API UAbilityTask_ListenKeyAndWaitInputEvent : public UAbilityTask
+class SKILL_GAS_SUPPORT_API UAbilityTask_ListenKeyAndWaitInputEvent : public UAbilityTask
 {
 	GENERATED_BODY()
 

@@ -10,7 +10,7 @@
  * 
  */
 UCLASS(Blueprintable)
-class WESTERN_MAP_API UReadMagicAbilityArgument : public UObject
+class SKILL_GAS_SUPPORT_API UReadMagicAbilityArgument : public UObject
 {
 	GENERATED_BODY()
 	

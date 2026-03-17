@@ -4,7 +4,7 @@
 class UProjectileMovementComponent;
 
 UCLASS()
-class WESTERN_MAP_API ARepVelocityProjectile : public AActor
+class SKILL_GAS_SUPPORT_API ARepVelocityProjectile : public AActor
 {
 	GENERATED_BODY()
 

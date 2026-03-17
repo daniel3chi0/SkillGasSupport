@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/Abilities/TargetType.h"
+﻿#include "Abilities/TargetType.h"
 #include "Abilities/GameplayAbilityTypes.h"
 
 void UTargetType::GetTargets_Implementation(AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults,

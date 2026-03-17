@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/AsyncTasks/AsyncTask_CooldownChanged.h"
+﻿#include "AsyncTasks/AsyncTask_CooldownChanged.h"
 
 UAsyncTaskCooldownChanged * UAsyncTaskCooldownChanged::ListenForCooldownChange(UAbilitySystemComponent * AbilitySystemComponent, FGameplayTagContainer InCooldownTags, bool InUseServerCooldown)
 {

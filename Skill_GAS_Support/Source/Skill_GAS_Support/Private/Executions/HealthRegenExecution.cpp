@@ -1,9 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "AbilitySystem/Executions/HealthRegenExecution.h"
-
-#include "AbilitySystem/Werewolf_AttributeSet.h"
+#include "Executions/HealthRegenExecution.h"
+#include "Character_AttributeSet.h"
 
 struct SHealthStatics
 {
@@ -12,8 +9,8 @@ struct SHealthStatics
 
 	SHealthStatics()
 	{
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UWerewolf_AttributeSet, Health, Source, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UWerewolf_AttributeSet, MaxHealth, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCharacter_AttributeSet, Health, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCharacter_AttributeSet, MaxHealth, Source, false);
 	}
 };
 
@@ -44,8 +41,8 @@ void UHealthRegenExecution::Execute_Implementation(const FGameplayEffectCustomEx
 	float UnmitigatedMaxHealth = MaxHealth;
 
 	UAbilitySystemComponent* SASC = ExecutionParams.GetSourceAbilitySystemComponent();
-	UWerewolf_AttributeSet* AttributeSet = const_cast<UWerewolf_AttributeSet*>(Cast<UWerewolf_AttributeSet>(SASC->GetAttributeSet(UWerewolf_AttributeSet::StaticClass())));
-	UWerewolf_AttributeSet* AttributeSetCDO = AttributeSet->GetClass()->GetDefaultObject<UWerewolf_AttributeSet>();
+	UCharacter_AttributeSet* AttributeSet = const_cast<UCharacter_AttributeSet*>(Cast<UCharacter_AttributeSet>(SASC->GetAttributeSet(UCharacter_AttributeSet::StaticClass())));
+	UCharacter_AttributeSet* AttributeSetCDO = AttributeSet->GetClass()->GetDefaultObject<UCharacter_AttributeSet>();
 	float DefaultMaxHealth = AttributeSetCDO->GetMaxHealth();
 	
 	if(CalcuType == ECalcuType::ECT_Reduce)

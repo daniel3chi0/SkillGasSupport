@@ -6,7 +6,7 @@
 
 
 USTRUCT()
-struct FAbilityTagRelationship
+struct SKILL_GAS_SUPPORT_API FAbilityTagRelationship
 {
 	GENERATED_BODY()
 	
@@ -32,7 +32,7 @@ struct FAbilityTagRelationship
 };
 
 UCLASS()
-class UAbilityTagRelationshipMapping : public UDataAsset
+class SKILL_GAS_SUPPORT_API UAbilityTagRelationshipMapping : public UDataAsset
 {
 	GENERATED_BODY()
 	

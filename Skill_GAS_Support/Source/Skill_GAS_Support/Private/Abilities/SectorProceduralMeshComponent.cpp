@@ -1,8 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "AbilitySystem/Abilities/SectorProceduralMeshComponent.h"
-
+#include "Abilities/SectorProceduralMeshComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 //扇形体
@@ -17,6 +14,10 @@
 *	@SectionNum 扇形体（圆柱体）的分割面数。数值越大，越圆滑。
 *	@Out_Vertices 输出的顶点；
 *	@Out_Triangles 输出的三角形；
+*/
+
+/*
+*	=========== 有bug 暂时用不了 ===========
 */
  void UProceduralMeshHelper::CreateSectorMesh(FVector CenterPoint, FVector Forward, FVector Up, float Angle, float Radius, float Height, int32 SectionNum, TArray<FVector>& Out_Vertices, TArray<int32>& Out_Triangles)
  {

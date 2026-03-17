@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/AbilityTasks/AbilityTask_ServerWaitForClientTargetData.h"
+﻿#include "AbilityTasks/AbilityTask_ServerWaitForClientTargetData.h"
 #include "AbilitySystemComponent.h"
 
 UAbilityTask_ServerWaitForClientTargetData::UAbilityTask_ServerWaitForClientTargetData(const FObjectInitializer& ObjectInitializer)

@@ -1,13 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "AbilitySystem/AbilityTasks/AbilityTask_WaitTargetDataReusableActor.h"
-
+#include "AbilityTasks/AbilityTask_WaitTargetDataReusableActor.h"
 #include "AbilitySystemComponent.h"
 #include "Abilities/GameplayAbilityTargetActor.h"
-#include "AbilitySystem/TargetActor/GATA_GroundTrace.h"
-#include "AbilitySystem/TargetActor/GATA_Trace.h"
-
+#include "TargetActor/GATA_GroundTrace.h"
+#include "TargetActor/GATA_Trace.h"
 
 UAbilityTask_WaitTargetDataReusableActor* UAbilityTask_WaitTargetDataReusableActor::WaitTargetDataWithReusableActor(UGameplayAbility* OwningAbility, FName TaskInstanceName,
                                                                                                   TEnumAsByte<EGameplayTargetingConfirmation::Type> ConfirmationType, AGameplayAbilityTargetActor* InTargetActor, bool bCreateKeyIfNotValidForMorePredicting)

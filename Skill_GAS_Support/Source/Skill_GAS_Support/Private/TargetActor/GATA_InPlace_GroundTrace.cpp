@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/TargetActor/GATA_InPlace_GroundTrace.h"
+﻿#include "TargetActor/GATA_InPlace_GroundTrace.h"
 
 AGATA_InPlace_GroundTrace::AGATA_InPlace_GroundTrace()
 {

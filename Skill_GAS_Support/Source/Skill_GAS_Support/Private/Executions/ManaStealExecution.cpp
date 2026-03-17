@@ -1,5 +1,5 @@
-﻿#include "AbilitySystem/Executions/ManaStealExecution.h"
-#include "AbilitySystem/Werewolf_AttributeSet.h"
+﻿#include "Executions/ManaStealExecution.h"
+#include "Character_AttributeSet.h"
 
 struct SManaStatics
 {
@@ -7,7 +7,7 @@ struct SManaStatics
 
 	SManaStatics()
 	{
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UWerewolf_AttributeSet, Mana, Target, true);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCharacter_AttributeSet, Mana, Target, true);
 	}
 };
 
@@ -54,7 +54,7 @@ void UManaStealExecution::Execute_Implementation(const FGameplayEffectCustomExec
 		FGameplayModifierInfo& Info = GEManaObtain->Modifiers[Idx];
 		Info.ModifierMagnitude = FScalableFloat(ManaStoleValue);
 		Info.ModifierOp = EGameplayModOp::Additive;
-		Info.Attribute = UWerewolf_AttributeSet::GetManaAttribute();
+		Info.Attribute = UCharacter_AttributeSet::GetManaAttribute();
 
 		UAbilitySystemComponent* SASC = ExecutionParams.GetSourceAbilitySystemComponent();
 		SASC->ApplyGameplayEffectToSelf(GEManaObtain, 1.0f, SASC->MakeEffectContext());

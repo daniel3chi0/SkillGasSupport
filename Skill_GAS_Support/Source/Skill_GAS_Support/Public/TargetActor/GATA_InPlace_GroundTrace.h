@@ -3,7 +3,7 @@
 #include "GATA_InPlace_GroundTrace.generated.h"
 
 UCLASS()
-class AGATA_InPlace_GroundTrace : public AGATA_GroundTrace
+class SKILL_GAS_SUPPORT_API AGATA_InPlace_GroundTrace : public AGATA_GroundTrace
 {
 	GENERATED_BODY()
 	

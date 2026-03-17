@@ -12,7 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayMontageAndWaitForEventDelegate
  * It is expected that each game will have a set of game-specific tasks to do what they want
  */
 UCLASS()
-class WESTERN_MAP_API UAbilityTask_PlayMontageAndWaitForEvent : public UAbilityTask
+class SKILL_GAS_SUPPORT_API UAbilityTask_PlayMontageAndWaitForEvent : public UAbilityTask
 {
 	GENERATED_BODY()
 	

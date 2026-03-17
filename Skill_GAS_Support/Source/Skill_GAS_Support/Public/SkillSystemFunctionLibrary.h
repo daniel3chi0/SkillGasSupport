@@ -1,18 +1,19 @@
 ﻿#pragma once
 #include "GameplayAbilitySpecHandle.h"
 #include "GameplayTagContainer.h"
+#include "Abilities/GameplayAbilityTypes.h"
 
 #include "SkillSystemFunctionLibrary.generated.h"
 
 struct FGameplayAbilityTargetDataHandle;
-class UWerewolf_Ability;
-class UWerewolf_MagicSystemComponent;
+class USGSAbility;
+class UMagicSystemComponent;
 struct FSkillRowStruct;
 struct FMagicRowStruct;
 class UAbilitySystemComponent;
 
 UCLASS()
-class WESTERN_MAP_API USkillSystemFunctionLibrary : public UBlueprintFunctionLibrary
+class SKILL_GAS_SUPPORT_API USkillSystemFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
@@ -32,10 +33,10 @@ public:
 	static bool IsAbilityActiveByTag(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayTag& Tag);
 
 	UFUNCTION(BlueprintPure, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
-	static UWerewolf_MagicSystemComponent* GetLocalPlayerMagicSystemComponent(UObject* WorldContextObject);
+	static UMagicSystemComponent* GetLocalPlayerMagicSystemComponent(UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintPure, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
-	static UWerewolf_MagicSystemComponent* GetPlayerMagicSystemComponent(UObject* WorldContextObject, AActor* CheckActor);
+	static UMagicSystemComponent* GetPlayerMagicSystemComponent(UObject* WorldContextObject, AActor* CheckActor);
 
 	UFUNCTION(BlueprintCallable, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
 	static bool EquipMagicAbilityByMagicId(UObject* WorldContextObject, int32 MagicId);
@@ -44,13 +45,13 @@ public:
 	static bool TryUseCurrentEquipedMagicAbility(UObject* WorldContextObject, UAbilitySystemComponent* ASC);
 
 	UFUNCTION(BlueprintCallable, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
-	static UWerewolf_Ability* GetCurrentEquipedMagicClass(UObject* WorldContextObject, UAbilitySystemComponent* ASC);
+	static USGSAbility* GetCurrentEquipedMagicClass(UObject* WorldContextObject, UAbilitySystemComponent* ASC);
 
 	UFUNCTION(BlueprintCallable, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
 	static FGameplayTagContainer GetCurrentEquipedMagicCooldownTags(UObject* WorldContextObject, UAbilitySystemComponent* ASC);
 
 	UFUNCTION(BlueprintCallable, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
-	static UWerewolf_Ability* GetPlayerLearnedMagicClassById(UObject* WorldContextObject, int32 MagicAbilityId);
+	static USGSAbility* GetPlayerLearnedMagicClassById(UObject* WorldContextObject, int32 MagicAbilityId);
 
 	UFUNCTION(BlueprintCallable, Category = "SkillLibrary|Magic", meta=(WorldContext = "WorldContextObject"))
 	static FGameplayTagContainer GetPlayerLearnedMagicCooldownTagsById(UObject* WorldContextObject, int32 MagicAbilityId);
@@ -87,6 +88,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Ability|TargetData")
 	static void GetCDTimeRemainingAndDurationByTag(UAbilitySystemComponent* ASC, FGameplayTagContainer InCooldownTags, float& TimeRemaining, float& CooldownDuration);
+
+	UFUNCTION(BlueprintCallable,Category = "Ability")
+	static bool SendGameplayEventToActorByReturn(AActor* Actor, FGameplayTag EventTag, FGameplayEventData Payload);
 	
 private:
 

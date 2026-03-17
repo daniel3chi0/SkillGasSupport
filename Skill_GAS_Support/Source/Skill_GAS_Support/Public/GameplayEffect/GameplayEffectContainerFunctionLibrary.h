@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include "AbilitySystem/Abilities/AbilityTypes.h"
+#include "Abilities/AbilityTypes.h"
 #include "GameplayEffectContainerFunctionLibrary.generated.h"
 
 
 struct FGameplayEventData;
 
 UCLASS()
-class WESTERN_MAP_API UGameplayEffectContainerFunctionLibrary : public UBlueprintFunctionLibrary
+class SKILL_GAS_SUPPORT_API UGameplayEffectContainerFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:

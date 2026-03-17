@@ -3,7 +3,7 @@
 #include "GATA_GroundTrace.generated.h"
 
 UCLASS()
-class WESTERN_MAP_API AGATA_GroundTrace : public AGameplayAbilityTargetActor_GroundTrace
+class SKILL_GAS_SUPPORT_API AGATA_GroundTrace : public AGameplayAbilityTargetActor_GroundTrace
 {
 	GENERATED_BODY()
 	

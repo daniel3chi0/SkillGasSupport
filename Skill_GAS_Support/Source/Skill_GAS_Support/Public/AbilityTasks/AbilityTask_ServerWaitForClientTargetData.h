@@ -9,7 +9,7 @@
  * 
  */
 UCLASS()
-class WESTERN_MAP_API UAbilityTask_ServerWaitForClientTargetData : public UAbilityTask
+class SKILL_GAS_SUPPORT_API UAbilityTask_ServerWaitForClientTargetData : public UAbilityTask
 {
 	GENERATED_UCLASS_BODY()
 

@@ -10,7 +10,7 @@ class UGameplayAbility;
 
 /** Selects everything within a given radius of the source actor. */
 UCLASS(Blueprintable, notplaceable)
-class WESTERN_MAP_API AGATA_RadiusBase : public AGameplayAbilityTargetActor
+class SKILL_GAS_SUPPORT_API AGATA_RadiusBase : public AGameplayAbilityTargetActor
 {
 	GENERATED_UCLASS_BODY()
 

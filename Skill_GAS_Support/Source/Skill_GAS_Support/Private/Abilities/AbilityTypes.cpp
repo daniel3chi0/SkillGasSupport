@@ -1,4 +1,4 @@
-﻿#include "AbilitySystem/Abilities/AbilityTypes.h"
+﻿#include "Abilities/AbilityTypes.h"
 
 bool FGameplayEffectContainerSpec::HasValidEffects() const
 {

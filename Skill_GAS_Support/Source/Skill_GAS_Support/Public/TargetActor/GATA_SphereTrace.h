@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/TargetActor/GATA_Trace.h"
+#include "TargetActor/GATA_Trace.h"
 #include "CollisionQueryParams.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/CollisionProfile.h"
@@ -14,7 +14,7 @@
  * one will destroy the TargetActor.
  */
 UCLASS()
-class WESTERN_MAP_API AGATA_SphereTrace : public AGATA_Trace
+class SKILL_GAS_SUPPORT_API AGATA_SphereTrace : public AGATA_Trace
 {
 	GENERATED_BODY()
 	
