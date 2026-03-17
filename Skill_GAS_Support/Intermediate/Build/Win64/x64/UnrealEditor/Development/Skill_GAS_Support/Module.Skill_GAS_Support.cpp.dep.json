@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "g:\\unrealengine5\\mypluginproject\\plugins\\skill_gas_support\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\skill_gas_support\\module.skill_gas_support.cpp",
+        "ProvidedModule": "",
+        "PCH": "f:\\unrealenginesource\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "g:\\unrealengine5\\mypluginproject\\plugins\\skill_gas_support\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\skill_gas_support\\definitions.skill_gas_support.h",
+            "g:\\unrealengine5\\mypluginproject\\plugins\\skill_gas_support\\source\\skill_gas_support\\private\\skill_gas_support.cpp",
+            "g:\\unrealengine5\\mypluginproject\\plugins\\skill_gas_support\\source\\skill_gas_support\\public\\skill_gas_support.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

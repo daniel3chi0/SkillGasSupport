@@ -1,0 +1,8 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Skill_GAS_Support.cpp.obj": [
+			"Skill_GAS_Support.cpp.obj"
+		]
+	}
+}
