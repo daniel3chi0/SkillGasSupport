@@ -3,6 +3,8 @@
 #include "Abilities/Tasks/AbilityTask.h"
 #include "AbilityTask_PlayMontageAndWaitForEvent.generated.h"
 
+class UAnimMontage;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayMontageAndWaitForEventDelegate, FGameplayTag, EventTag, FGameplayEventData, EventData);
 
 /**
@@ -28,6 +30,13 @@ public:
 	virtual void ExternalCancel() override;
 	virtual FString GetDebugString() const override;
 	virtual void OnDestroy(bool AbilityEnded) override;
+
+	/** Optional server timeline hooks used by specialized task implementations. */
+	virtual void HandleServerMontageTimelineEvent(const struct FWerewolfServerMontageTimelineEvent& TimelineEvent) {}
+	virtual void TickServerAttackCollision(double NowSeconds) {}
+	virtual void FlushServerNotifyStateTicks() {}
+	virtual bool HasServerRootMotion() const { return false; }
+	virtual void AdvanceServerRootMotion(double NowSeconds) {}
 
 	/** The montage completely finished playing */
 	UPROPERTY(BlueprintAssignable)
@@ -74,7 +83,23 @@ public:
 			float AnimRootMotionTranslationScale = 1.f,
 			bool bAllowInterruptAfterBlendOut = false);
 
-private:
+protected:
+	enum class EMontageStartFailure : uint8
+	{
+		MissingResource,
+		NoActivation
+	};
+
+	/**
+	 * Native-only classification hook for failures that happen before montage
+	 * playback starts. Returning false consumes the failure and ends the task
+	 * without emitting the legacy OnCancelled delegate.
+	 */
+	virtual bool HandleMontageStartFailure(EMontageStartFailure Failure)
+	{
+		return true;
+	}
+
 	/** Montage that is playing */
 	UPROPERTY()
 	UAnimMontage* MontageToPlay;
@@ -106,6 +131,10 @@ private:
 	UPROPERTY()
 	float StartTimeSeconds = 0.f;
 
+	bool bTerminalCallbackSent = false;
+
+	bool bBlendOutCallbackSent = false;
+
 	/** Checks if the ability is playing a montage and stops that montage, returns true if a montage was stopped, false if not. */
 	bool StopPlayingMontage();
 
@@ -121,6 +150,7 @@ private:
 	FOnMontageEnded MontageEndedDelegate;
 	FDelegateHandle CancelledHandle;
 	FDelegateHandle EventHandle;
-	
+
 };
+
 

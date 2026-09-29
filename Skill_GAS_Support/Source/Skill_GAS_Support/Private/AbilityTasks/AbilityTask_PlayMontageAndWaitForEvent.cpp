@@ -2,6 +2,7 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"
 #include "GameFramework/Character.h"
+//#include "Game/Werewolf_HeroPlayerState.h"
 
 static bool GUseAggressivePlayMontageAndWaitEndTask = true;
 static FAutoConsoleVariableRef CVarAggressivePlayMontageAndWaitEndTask(TEXT("AbilitySystem.PlayMontage.AggressiveEndTask"), GUseAggressivePlayMontageAndWaitEndTask,
@@ -22,6 +23,11 @@ UAbilitySystemComponent* UAbilityTask_PlayMontageAndWaitForEvent::GetTargetASC()
 
 void UAbilityTask_PlayMontageAndWaitForEvent::OnMontageBlendingOut(UAnimMontage* Montage, bool bInterrupted)
 {
+	if (bTerminalCallbackSent || Montage != MontageToPlay)
+	{
+		return;
+	}
+	
 	const bool bPlayingThisMontage = (Montage == MontageToPlay) && Ability && Ability->GetCurrentMontage() == MontageToPlay;
 	if (bPlayingThisMontage)
 	{
@@ -45,26 +51,31 @@ void UAbilityTask_PlayMontageAndWaitForEvent::OnMontageBlendingOut(UAnimMontage*
 		}
 	}
 
-	if (ShouldBroadcastAbilityTaskDelegates())
+	if (!ShouldBroadcastAbilityTaskDelegates())
 	{
-		if (bInterrupted)
+		return;
+	}
+	
+	if (bInterrupted)
+	{
+		bTerminalCallbackSent = true;
+		OnInterrupted.Broadcast(FGameplayTag(), FGameplayEventData());
+		if (GUseAggressivePlayMontageAndWaitEndTask)
 		{
-			OnInterrupted.Broadcast(FGameplayTag(), FGameplayEventData());
-
-			if (GUseAggressivePlayMontageAndWaitEndTask)
-			{
-				EndTask();
-			}
+			EndTask();
 		}
-		else
-		{
-			OnBlendOut.Broadcast(FGameplayTag(), FGameplayEventData());
-		}
+	}
+	else if (!bBlendOutCallbackSent)
+	{
+		bBlendOutCallbackSent = true;
+		OnBlendOut.Broadcast(FGameplayTag(), FGameplayEventData());
 	}
 }
 
 void UAbilityTask_PlayMontageAndWaitForEvent::OnGameplayAbilityCancelled()
 {
+	bTerminalCallbackSent = true;
+	
 	if (StopPlayingMontage() || bAllowInterruptAfterBlendOut)
 	{
 		// Let the BP handle the interrupt as well
@@ -83,14 +94,24 @@ void UAbilityTask_PlayMontageAndWaitForEvent::OnGameplayAbilityCancelled()
 
 void UAbilityTask_PlayMontageAndWaitForEvent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-	if (!bInterrupted)
+	if (bTerminalCallbackSent || Montage != MontageToPlay)
 	{
-		if (ShouldBroadcastAbilityTaskDelegates())
+		return;
+	}
+	
+	bTerminalCallbackSent = true;
+	if (ShouldBroadcastAbilityTaskDelegates())
+	{
+		if (!bInterrupted)
 		{
 			OnCompleted.Broadcast(FGameplayTag(), FGameplayEventData());
 		}
+		else
+		{
+			OnInterrupted.Broadcast(FGameplayTag(), FGameplayEventData());
+		}
 	}
-
+	
 	EndTask();
 }
 
@@ -131,11 +152,12 @@ void UAbilityTask_PlayMontageAndWaitForEvent::Activate()
 	}
 
 	bool bPlayedMontage = false;
+	EMontageStartFailure StartFailure = EMontageStartFailure::MissingResource;
 	
 	if (UAbilitySystemComponent* ASC = AbilitySystemComponent.Get())
 	{
 		const FGameplayAbilityActorInfo* ActorInfo = Ability->GetCurrentActorInfo();
-		UAnimInstance* AnimInstance = ActorInfo->GetAnimInstance();
+		UAnimInstance* AnimInstance = ActorInfo ? ActorInfo->GetAnimInstance() : nullptr;
 		if (AnimInstance != nullptr)
 		{
 			// Bind to event callback
@@ -162,6 +184,30 @@ void UAbilityTask_PlayMontageAndWaitForEvent::Activate()
 				AnimInstance->Montage_SetEndDelegate(MontageEndedDelegate, MontageToPlay);
 
 				ACharacter* Character = Cast<ACharacter>(GetAvatarActor());
+
+				/*UWerewolf_Ability* WerewolfAbility = Cast<UWerewolf_Ability>(Ability);
+				
+				if (WerewolfAbility)
+					WerewolfAbility->IsPlayMontage = true;
+
+				//开启骨骼的刷新
+				if ((Character && GetAvatarActor()->HasAuthority()) || !UWerewolf_CommonBlueprintFunctionLibrary::IsPlayerOrAI(Character))
+				{
+					USkeletalMeshComponent* SkeletalMesh = Character->FindComponentByClass<USkeletalMeshComponent>();
+
+					if (SkeletalMesh)
+					{
+						//禁用骨骼网格体Tick
+						//SkeletalMesh->PrimaryComponentTick.bCanEverTick = true;
+						//SkeletalMesh->SetComponentTickEnabled(true);
+
+						SkeletalMesh->bNoSkeletonUpdate = false;        //停止骨架更新
+						SkeletalMesh->bPauseAnims = false;              //暂停所有动画
+						SkeletalMesh->bEnableUpdateRateOptimizations = false;
+					}
+
+				}*/
+
 				if (Character && (Character->GetLocalRole() == ROLE_Authority ||
 					(Character->GetLocalRole() == ROLE_AutonomousProxy && Ability->GetNetExecutionPolicy() == EGameplayAbilityNetExecutionPolicy::LocalPredicted)))
 				{
@@ -169,6 +215,10 @@ void UAbilityTask_PlayMontageAndWaitForEvent::Activate()
 				}
 
 				bPlayedMontage = true;
+			}
+			else
+			{
+				StartFailure = EMontageStartFailure::NoActivation;
 			}
 		}
 		else
@@ -184,6 +234,11 @@ void UAbilityTask_PlayMontageAndWaitForEvent::Activate()
 	if (!bPlayedMontage)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("UGSAbilityTask_PlayMontageAndWaitForEvent called in Ability %s failed to play montage %s; Task Instance Name %s."), *Ability->GetName(), *GetNameSafe(MontageToPlay), *InstanceName.ToString());
+		if (!HandleMontageStartFailure(StartFailure))
+		{
+			EndTask();
+			return;
+		}
 		if (ShouldBroadcastAbilityTaskDelegates())
 		{
 			//ABILITY_LOG(Display, TEXT("%s: OnCancelled"), *GetName());
@@ -196,6 +251,8 @@ void UAbilityTask_PlayMontageAndWaitForEvent::Activate()
 
 void UAbilityTask_PlayMontageAndWaitForEvent::ExternalCancel()
 {
+	bTerminalCallbackSent = true;
+	
 	if (ShouldBroadcastAbilityTaskDelegates())
 	{
 		OnCancelled.Broadcast(FGameplayTag(), FGameplayEventData());
