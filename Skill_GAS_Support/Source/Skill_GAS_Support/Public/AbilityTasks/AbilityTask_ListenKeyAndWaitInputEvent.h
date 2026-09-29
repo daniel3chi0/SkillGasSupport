@@ -34,11 +34,11 @@ private:
 
 	EInputEvent InputEvent;
 
-	FInputKeyBinding InputKeyBinding;
-
-	int32 CacheIndex;
-
-	static int32 RemoveIndex;
+	// FInputKeyBinding InputKeyBinding;
+	//
+	// int32 CacheIndex;
+	//
+	// static int32 RemoveIndex;
 
 public:
 
